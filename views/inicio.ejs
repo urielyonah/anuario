@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="public/styles/estilos.inicioEJS.css">
+  <title>Inicio Anuario</title>
+</head>
+<body>
+
+  <header>
+    <div class="left-section">
+      <button class="btn_head"></button>
+    </div>
+    <div class="center-section">
+      <h1>Anuario Escolar</h1>
+    </div>
+    <div class="right-section">
+        <ul>
+            <li><a href="/inicio">Inicio</a></li>
+            <li><a href="alumnos">Alumnos</a></li>
+            <li><a href="/perfil">Perfil</a></li>
+            <li><a href="/">Cerrar sesión</a></li>
+          </ul>
+    </div>
+  </header>
+  
+  <main>
+    <div class="contenedor">
+        <%rows.forEach(proyectos => {%>
+        <div class="card">
+            <figure>
+                <img src="/imagenes/<%=proyectos.foto_proyecto%>" alt="">
+            </figure>
+            <div class="contenido">
+                <h3><%=proyectos.titulo%></h3>
+                <p><%=proyectos.descripcion%></p>
+                <a href="#">Leer más...</a>
+            </div>
+        </div>
+        <%})%>
+    </div>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="public/styles/estilos.css">
+  <title>Login Anuario</title>
+</head>
+<body>
+
+  <header>
+    <div class="left-section">
+      <button class="btn_head"></button>
+    </div>
+    <div class="center-section">
+      <h1>Anuario Escolar</h1>
+    </div>
+    <div class="right-section">
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+  </header>
+  
+  <main>
+
+    <div class="container__todo">
+
+      <div class="caja__trasera">
+
+        <div class="caja__trasera-login">
+          <h3>Ya tienes una cuenta?</h3>
+          <p>inicia sesion para entrar al anuario</p>
+          <button id="btn__iniciar-sesion">Iniciar sesion</button>
+        </div>
+
+        <div class="caja__trasera-register">
+          <h3>Aun no tienes una cuenta?</h3>
+          <p>Registrate para iniciar sesion para entrar al anuario</p>
+          <button id="btn__registrarse">Registrarse</button>
+        </div>
+      </div>
+
+      <div class="contenedor__login-register">
+
+        <form action="/iniciar" method="post" class="formulario__login">
+          <h2>IniciarSesion</h2>
+          <input type="email" name="IS_correo" placeholder="correo" required>
+          <input type="password" name="IS_contraseña" placeholder="contraseña" required>
+          <input type="submit" value="Entrar" name="button">
+        </form>
+
+        <form action="/registrar" method="post" class="formulario__register" onsubmit="borraryrecargar()">
+          <h2>Registrarse</h2>
+          <input type="text" name="R_nombre" placeholder="nombre" required>
+          <input type="email" name="R_correo" placeholder="correo" required>
+          <input type="password" name="R_contraseña" placeholder="contraseña" required>
+          <select type="option" name="R_tipo" required>
+            <option value="Alumno">Alumno</option>
+            <option value="Administrador">Administrador</option>
+          </select>
+          <input type="submit" value="Registrarse" name="button">
+          
+        </form>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</body>
+<script src="scripts/script.js"></script>
+<script src="scripts/script1.js"></script>
+</html>
