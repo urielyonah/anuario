@@ -1,0 +1,218 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: sans-serif;
+  }
+  body{
+    background-image: url(/public/images/fondo\ TEC.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment:fixed;
+    align-content: center;
+    align-items: center;
+  }
+  
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 128, 255, 0.5);
+    color: #fff;
+  }
+  .left-section {
+    flex-grow: 0;
+    margin-right: 10px;
+  }
+  .btn_head {
+    height: 60px;
+    width: 110px;
+    display: flex;
+    background: url(/public/views/images/logo_tec.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    size: 30px;
+    left: 20px;
+  }
+  .center-section {
+    flex-grow: 1;
+    text-align: center;
+  }
+  .right-section ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  .right-section li {
+    margin-right: 10px;
+  }
+  .right-section li:last-child {
+    margin-right: 0;
+  }
+  .right-section a {
+    text-decoration: none;
+    color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+  }
+  .right-section a:hover {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  
+  main {
+    width: 100%;
+    padding: 20px;
+    margin: auto;
+    margin-top: 100px;  
+  }
+  
+  .alumno-detalles {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .datos-personales,
+  .habilidades,
+  .proyectos {
+    width: 33.33%;
+    box-sizing: border-box;
+    padding: 10px;
+  }
+  
+  .datos-personales {
+    order: 1;
+  }
+  
+  .habilidades {
+    order: 2;
+  }
+  
+  .proyectos {
+    order: 3;
+  }
+  
+  /* Estilos para los títulos */
+  
+  h2,
+  h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+  
+  /* Estilos para los párrafos */
+  
+  p {
+    margin-bottom: 5px;
+    color: #fff;
+  }
+  
+  .img-perfil {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .contenedor {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1100px;
+    margin: auto;
+    background-color: rgba(0, 128, 255, 0.5);
+  }
+  
+  .perfil-img {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  main{
+    width: 100%;
+    padding: 20px;
+    margin: auto;
+    margin-top: 100px;  
+    align-content: center;
+    align-items: center;
+  }
+  
+  .contenedor{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    max-width: 1100px;
+    margin: auto;
+}
+.card{
+    width: 300px;
+    margin: 20px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0px 1px 10px rgba(0,0,0,0.2);
+    cursor: default;
+    transition : all 400ms ease;
+    position: relative;
+    text-align: center;
+    
+}
+.card h2{
+  margin-top: 15px;
+  font-weight: 400;
+  margin-bottom: 15px;
+  color: #000000;
+}
+.card:hover{
+    box-shadow: 5px 5px 20px rgba(0,0,0,0.4);
+    transform: translateY(-3%);
+}
+.card img{
+    width: 100%;
+}
+.card .contenido{
+    padding: 15px;
+    text-align: center;
+}
+.card .contenido p{
+  text-align:left;
+    line-height: 1.5;
+    color: #6a6a6a
+}
+.card .contenido h3{
+    font-weight: 400;
+    margin-bottom: 15px;
+    color: #6a6a6a
+}
+.card .contenido a{
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px;
+    margin-top: 10px;
+    color: #2fb4cc;
+    border: 1px solid #2fb4cc;
+    border-radius: 4px;
+    transition: all 400ms ease;
+}
+.card .contenido a:hover{
+    background: #2fb4cc;
+    color:#fff;
+}

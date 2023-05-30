@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/styles/estilos.admins.css">
+    <title>Inicio Admins</title>
+</head>
+<body>
+    <header>
+        <div class="left-section">
+          <button class="btn_head"></button>
+        </div>
+        <div class="center-section">
+          <h1>Anuario Escolar</h1>
+        </div>
+        <div class="right-section">
+            <ul>
+                <li><a href="/inicio-admin">Alumnos</a></li>
+                <li><a href="/proyectos-admin">Proyectos</a></li>
+                <li><a href="/">Cerrar sesión</a></li>
+              </ul>
+        </div>
+      </header>
+      <main>
+        <h2>Tabla de Alumnos</h2>
+  <table class="tabla">
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Contraseña</th>
+      <th>Apellidos</th>
+      <th>correo</th>
+      <th>carrera</th>
+      <th>semestre</th> 
+    </tr>
+    <% alumnos.forEach(function(alumno) { %>
+        <tr>
+          <td><%= alumno.id_alumno %></td>
+          <td><%= alumno.nombre %></td>
+          <td><%= alumno.contraseña %></td>
+          <td><%= alumno.apellido %></td>
+          <td><%= alumno.correo %></td>
+          <td><%= alumno.carrera %></td>
+          <td><%= alumno.semestre %></td>
+          <td><button>Borrar</button></td>
+          <td><button>Editar</button></td>
+        </tr>
+      <% }); %>
+      
+        <button>Agregar Alumno</button>
+        
+      
+  </table>
+      </main>
+</body>
+</html>

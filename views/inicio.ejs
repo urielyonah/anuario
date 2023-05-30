@@ -28,18 +28,18 @@
   
   <main>
     <div class="contenedor">
-        <%rows.forEach(proyectos => {%>
+      <% proyectos.forEach(proyecto => { %>
         <div class="card">
             <figure>
-                <img src="/imagenes/<%=proyectos.foto_proyecto%>" alt="">
+                <img src="/public/imagenes/<%=proyecto.foto%>" alt="">
             </figure>
             <div class="contenido">
-                <h3><%=proyectos.titulo%></h3>
-                <p><%=proyectos.descripcion%></p>
-                <a href="#">Leer más...</a>
+                <h3><%=proyecto.titulo%></h3>
+                <p><%=proyecto.descripcion%></p>
+                <p>Autor: <%=proyecto.autor%></p>
             </div>
         </div>
-        <%})%>
+        <% }) %>
     </div>
   </main>
 

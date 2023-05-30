@@ -34,14 +34,15 @@
         <%rows.forEach(alumnos => {%>
         <div class="card">
             <figure>
-                <img src="/imagenes/<%=alumnos.foto%>" alt="">
+                <img class="img-perfil" src="/public/imagenes/<%=alumnos.foto%>" alt="">
             </figure>
             <div class="contenido">
-                <h3><%=alumnos.nombre%> <%=alumnos.apellidos%></h3>
+                <h3><%=alumnos.nombre%> <%=alumnos.apellido%></h3>
+               
                 <p>Correo: <%=alumnos.correo%></p>
                 <p>Carrera: <%=alumnos.carrera%></p>
                 <p>Semestre: <%=alumnos.semestre%></p>
-                <a href="#">Leer más...</a>
+                <a href="/alumnos/<%=alumnos.id_alumno%>">Leer más...</a>
             </div>
         </div>
         <%})%>

@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="public/styles/estilos.perfilEJS.css">
+  <script src="/scripts/script.perfil.js"></script>
   <title>Perfil Usuario</title>
 </head>
 <body>
@@ -28,20 +29,90 @@
   
   <main>
     <div class="contenedor">
-      
-        <div class="card">
-            <figure>
-                <img src="/imagenes/<%=alumno.foto%>" alt="Foto del alumno">
-            </figure>
-            <div class="contenido">
-                <h3><%=alumno.nombre%> <%=alumno.apellidos%></h3>
-                <p>Carrera: <%=alumno.carrera%></p>
-                <p>Semestre: <%=alumno.semestre%></p>
-                <p>Habilidades: <%=alumno.habilidades%></p>
-                <p>Correo: <%=alumno.correo%></p>
-                <a href="/perfil/editar">Editar información</a>
+
+      <div class="perfil-info">
+        <h2>Información Personal</h2>
+        <div class="datos-personales">
+          <form action="/actPersonal" method="patch" enctype="multipart/form-data">
+            <div class="campo">
+              <label for="<%=alumno.foto%>">Foto:</label>
+              <img class="img-perfil" src="/public/imagenes/<%=alumno.foto%>" alt="Foto de perfil" >
+              <input type="file" name="file">
             </div>
+            <div class="campo">
+              <label for="nombre">Nombre:</label>
+              <input type="text" name="F_nombre" value="<%=alumno.nombre%>" >
+            </div>
+            <div class="campo">
+              <label for="apellidos">Apellidos:</label>
+              <input type="text" name="F_apellido" value="<%=alumno.apellido%>">
+            </div>
+            <div class="campo">
+              <label for="contrasena">Contraseña:</label>
+              <input type="password" name="F_contrasena" value="<%=alumno.contraseña%>" >
+            </div>
+            <div class="campo">
+              <label for="carrera">Carrera:</label>
+              <input type="text" name="F_carrera" value="<%=alumno.carrera%>" >
+            </div>
+            <div class="campo">
+              <label for="semestre">Semestre:</label>
+              <input type="text" name="F_semestre" value="<%=alumno.semestre%>" >
+            </div>
+            <div class="campo">
+              <label for="correo">Correo:</label>
+              <input type="email" name="F_correo" value="<%=alumno.correo%>" >
+            </div>
+            <button id="editar-btn">Editar</button>
+          </form>
         </div>
+      </div>
+
+      <div class="descripcion">
+        <h2>Descripción</h2>
+        <form action="/actHabilidades" method="post">
+          <div class="campo">
+            <label for="objetivo-corto">Objetivo a Corto Plazo:</label>
+            <input type="text" id="objetivo-corto" rows="2" name="f_obj_corto" value="<%=habilidades.obj_corto%>">
+          </div>
+          <div class="campo">
+            <label for="objetivo-largo">Objetivo a Largo Plazo:</label>
+            <input type="text" id="objetivo-largo" rows="2" name="f_obj_largo" value="<%=habilidades.obj_largo%>">
+          </div>
+          <div class="campo">
+            <label for="habilidades">Habilidades:</label>
+            <input type="text" id="habilidades" rows="4" name="f_habilidades" value="<%=habilidades.habilidades%>">
+          </div>
+          <div class="campo">
+            <label for="fortalezas">Fortalezas:</label>
+            <input type="text" id="fortalezas" rows="4" name="f_fortalezas" value="<%=habilidades.fortalezas%>">
+          </div>
+          <div class="campo">
+            <label for="intereses">Intereses:</label>
+            <input type="text" id="intereses" rows="4" name="f_intereses" value="<%=habilidades.intereses%>">
+          </div>
+          <button id="editar-descripcion-btn">Editar Descripción</button>
+        </form>
+      </div>
+
+      <div class="proyecto">
+        <h2>Proyecto</h2>
+        <form action="/actProyecto" method="post" enctype="multipart/form-data">
+          <div class="campo">
+            <label for="titulo-proyecto">Título:</label>
+            <input type="text" id="titulo-proyecto" name="f_titulo">
+          </div>
+          <div class="campo">
+            <label for="descripcion-proyecto">Descripción:</label>
+            <input type="text" id="descripcion-proyecto" rows="4" name="f_descripcion">
+          </div>
+          <div class="campo">
+            <label for="foto-proyecto">Foto:</label>
+            <input type="file" id="foto-proyecto" name="file">
+          </div>
+          <button id="crear-proyecto-btn">Crear Proyecto</button>
+        </div>
+        </form> 
     </div>
   </main>
 
