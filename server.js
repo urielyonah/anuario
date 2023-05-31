@@ -19,10 +19,14 @@ app.use(session({
 
 
 var con = mysql.createConnection({
-    host : 'localhost',
-    user : 'uriel',
-    password : '123456789',
-    database : 'anuario',
+    host : 'bang4lqimmpucrznawyy-mysql.services.clever-cloud.com',
+    user : 'utfa96gwfr4cgjc4',
+    password : 'hpppbuLqHk0IgrHbFSs2',
+    database : 'bang4lqimmpucrznawyy',
+   /* host:'localhost',
+    user:'uriel',
+    password:'123456789',
+    database:'anuario',*/
 })
 
 const upload = multer({
@@ -80,7 +84,7 @@ app.post('/iniciar', (req, res) => {
   app.post('/admins-login', (req, res) => {
     const correo = req.body.IS_correo;
     const contraseña = req.body.IS_contraseña;
-    const query = 'SELECT * FROM admins WHERE correo = ? AND contraseña = ?';
+    const query = 'SELECT * FROM admin WHERE correo = ? AND contraseña = ?';
     con.query(query, [correo, contraseña], (error, results) => {
       if (error) {
         console.error('Error al consultar la base de datos: ', error);
@@ -205,6 +209,33 @@ app.get('/perfil', (req, res) => {
     });
 });
 
+app.post('/actPersonal', upload.single('file'), (req, res) => {
+  console.log('Valor de contraseña:', req.body.f_contraseña);
+  const alumnoId = req.session.userId; // Obtener el ID del alumno de la sesión
+  if (!alumnoId) {
+    res.send('No has iniciado sesión');
+    return;
+  }
+  const foto = req.file ? req.file.filename : null;
+  const nombre = req.body.F_nombre;
+  const apellido = req.body.F_apellido;
+  const contrasena = req.body.f_contraseña;
+  const carrera = req.body.F_carrera;
+  const semestre = req.body.F_semestre;
+  const correo = req.body.F_correo;
+
+  const query = 'UPDATE alumnos SET foto = ?, nombre = ?, apellido = ?, carrera = ?, semestre = ?, correo = ? WHERE id_alumno = ?';
+  con.query(query, [foto, nombre, apellido, carrera, semestre, correo, alumnoId], (error, results) => {
+    if (error) {
+      console.error('Error al actualizar los datos en la base de datos: ', error);
+      res.status(500).send('Error al procesar la solicitud');
+      return;
+    }
+    res.redirect('/perfil');
+  });
+});
+
+
 /*app.post('/actPersonal', upload.single('file'), (req, res) => {
     const alumnoId = req.session.userId; // Obtener el ID del alumno de la sesión
     if (!alumnoId) {
@@ -214,7 +245,7 @@ app.get('/perfil', (req, res) => {
     const foto = req.file.filename ? req.file.filename : null;
     const nombre = req.body.F_nombre;
     const apellido = req.body.F_apellido;
-    const contraseña = req.body.F_contrasena;
+    const contraseña = req.body.F_contraseña;
     const carrera = req.body.F_carrera;
     const semestre = req.body.F_semestre;
     const correo = req.body.F_correo;
@@ -230,7 +261,7 @@ app.get('/perfil', (req, res) => {
     });
   });*/
 
-  app.patch('/actPersonal', upload.single('file'), (req, res) => {
+  /*app.post('/actPersonal', upload.single('file'), (req, res) => {
     const alumnoId = req.session.userId; // Obtener el ID del alumno de la sesión
     if (!alumnoId) {
       res.send('No has iniciado sesión');
@@ -239,7 +270,7 @@ app.get('/perfil', (req, res) => {
     const foto = req.file ? req.file.filename : null;
     const nombre = req.body.F_nombre;
     const apellido = req.body.F_apellido;
-    const contraseña = req.body.F_contrasena;
+    const contraseña = req.body.F_contraseña;
     const carrera = req.body.F_carrera;
     const semestre = req.body.F_semestre;
     const correo = req.body.F_correo;
@@ -253,7 +284,7 @@ app.get('/perfil', (req, res) => {
       }
       res.redirect('/perfil');
     });
-  });
+  });*/
 
   app.post('/actHabilidades', (req, res) => {
     const alumnoId = req.session.userId; // Obtener el ID del alumno de la sesión
@@ -368,13 +399,114 @@ app.get('/perfil', (req, res) => {
     });
   });
 
+  app.post('/agregarAlumno', (req, res) => {
+    const datos = req.body;
+
+    const query = 'INSERT INTO alumnos (id_alumno, nombre, apellido, correo, contraseña, carrera, semestre) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    con.query(query, [datos.idalumno, datos.nombre, datos.apellido, datos.correo, datos.contraseña, datos.carrera, datos.semestre], (error, results) => {
+      if (error) {
+        console.error('Error al actualizar los datos en la base de datos:', error);
+        res.status(500).json({ mensaje: 'Error al actualizar el alumno en la base de datos' });
+        return;
+      }
+      res.json({ mensaje: 'Alumno actualizado correctamente' });
+    });
+  });
+
+  app.put('/editarAlumno/:alumnoId', (req, res) => {
+    const alumnoId = req.params.alumnoId;
+    const datos = req.body;
+  
+    const query = 'UPDATE alumnos SET nombre = ?, apellido = ?, contraseña = ?, correo = ?, carrera = ?, semestre = ? WHERE id_alumno = ?';
+    con.query(query, [datos.nombre, datos.apellido, datos.contraseña, datos.correo, datos.carrera, datos.semestre, alumnoId], (error, results) => {
+      if (error) {
+        console.error('Error al actualizar los datos en la base de datos:', error);
+        res.status(500).json({ mensaje: 'Error al actualizar el alumno en la base de datos' });
+        return;
+      }
+      res.json({ mensaje: 'Alumno actualizado correctamente' });
+    });
+  });
+  
+
+  app.delete('/borrarAlumno/:alumnoId', (req, res) => {
+    const alumnoId = req.params.alumnoId; 
+  
+    const query = 'DELETE FROM alumnos WHERE id_alumno = ?';
+    con.query(query, [alumnoId], (error, results) => {
+      if (error) {
+        console.error('Error al borrar los datos en la base de datos:', error);
+        res.status(500).json({ mensaje: 'Error al borrar el alumno' });
+        return;
+      }
+      res.redirect('/inicio-admin');
+    });
+  });
+
+
+  app.post('/agregarProyecto', (req, res) => {
+    const datos = req.body;
+
+    const query = 'INSERT INTO proyectos (id_proyectos, titulo, descripcion, id_alumno) VALUES (?, ?, ?, ?)';
+    con.query(query, [datos.idproyecto, datos.titulo, datos.descripcion, datos.idalumno], (error, results) => {
+      if (error) {
+        console.error('Error al actualizar los datos en la base de datos:', error);
+        res.status(500).json({ mensaje: 'Error al actualizar el proyecto en la base de datos' });
+        return;
+      }
+      res.json({ mensaje: 'Proyecto actualizado correctamente' });
+    });
+  });
+
+  app.put('/editarAlumno/:alumnoId', (req, res) => {
+    const alumnoId = req.params.alumnoId;
+    const datos = req.body;
+  
+    const query = 'UPDATE alumnos SET nombre = ?, apellido = ?, contraseña = ?, correo = ?, carrera = ?, semestre = ? WHERE id_alumno = ?';
+    con.query(query, [datos.nombre, datos.apellido, datos.contraseña, datos.correo, datos.carrera, datos.semestre, alumnoId], (error, results) => {
+      if (error) {
+        console.error('Error al actualizar los datos en la base de datos:', error);
+        res.status(500).json({ mensaje: 'Error al actualizar el alumno en la base de datos' });
+        return;
+      }
+      res.json({ mensaje: 'Alumno actualizado correctamente' });
+    });
+  });
+
+  app.put('/editarProyecto/:proyectoId', (req, res) => {
+    const proyectoId = req.params.proyectoId;
+    const datos = req.body;
+  
+    const query = 'UPDATE proyectos SET titulo = ?, descripcion = ? WHERE id_proyectos = ?';
+    con.query(query, [datos.titulo, datos.descripcion, proyectoId], (error, results) => {
+      if (error) {
+        console.error('Error al actualizar los datos en la base de datos:', error);
+        res.status(500).json({ mensaje: 'Error al actualizar el proyecto en la base de datos' });
+        return;
+      }
+      res.json({ mensaje: 'Proyecto actualizado correctamente' });
+    });
+  });
+
+
+  app.delete('/borrarProyecto/:proyectoId', (req, res) => {
+    const proyectoId = req.params.proyectoId; 
+  
+    const query = 'DELETE FROM proyectos WHERE id_proyectos = ?';
+    con.query(query, [proyectoId], (error, results) => {
+      if (error) {
+        console.error('Error al borrar los datos en la base de datos:', error);
+        res.status(500).json({ mensaje: 'Error al borrar el proyecto' });
+        return;
+      }
+      res.redirect('/proyectos-admin');
+    });
+  });
 
   
 app.get("/admins", (req,res)=>{
   return res.render('admins');
 })
-
-
 app.get("/", (req, res)=>{
     return res.redirect('index.html')
 

@@ -26,6 +26,10 @@
   .left-section {
     flex-grow: 0;
     margin-right: 10px;
+    background: url(/public/images/logo_tec.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .btn_head {
     height: 60px;
@@ -74,6 +78,10 @@
     padding: 20px;
     margin: auto;
     margin-top: 100px;
+    text-align: center;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), -2px -2px 4px rgba(255, 255, 255, 0.5);
+    
   }
   .container__todo{
     width: 100%;
@@ -207,6 +215,51 @@
     }
   }
 
-  .tabla{
-    background-color: #fff;
+
+  .container_todo {
+    background: linear-gradient(to bottom right, #FF0000, #FF5555);
+    text-align: center;
+    color: #FFFFFF;
+  }
+  
+  .tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #FFFFFF;
+  }
+
+  .tabla th,
+  .tabla td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #FFFFFF;
+    color: #FFFFFF;
+
+  }
+
+  .tabla th {
+    background-color: #ff0073;
+    text-align: center;
+  }
+
+  .tabla tr:nth-child(even) {
+    background-color: #8855ff;
+  }
+
+  .tabla input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 50px;
+  }
+
+  .tabla button {
+    padding: 5px 10px;
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
   }

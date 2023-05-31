@@ -18,6 +18,10 @@ header {
   .left-section {
     flex-grow: 0;
     margin-right: 10px;
+    background: url(/public/images/logo_tec.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .btn_head {
     height: 60px;

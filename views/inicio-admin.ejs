@@ -25,34 +25,143 @@
       </header>
       <main>
         <h2>Tabla de Alumnos</h2>
-  <table class="tabla">
-    <tr>
-      <th>ID</th>
-      <th>Nombre</th>
-      <th>Contraseña</th>
-      <th>Apellidos</th>
-      <th>correo</th>
-      <th>carrera</th>
-      <th>semestre</th> 
-    </tr>
-    <% alumnos.forEach(function(alumno) { %>
-        <tr>
-          <td><%= alumno.id_alumno %></td>
-          <td><%= alumno.nombre %></td>
-          <td><%= alumno.contraseña %></td>
-          <td><%= alumno.apellido %></td>
-          <td><%= alumno.correo %></td>
-          <td><%= alumno.carrera %></td>
-          <td><%= alumno.semestre %></td>
-          <td><button>Borrar</button></td>
-          <td><button>Editar</button></td>
-        </tr>
-      <% }); %>
-      
-        <button>Agregar Alumno</button>
+        <div class="container_todo">
+          <table class="tabla">
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Apellidos</th>
+              <th>Contraseña</th>
+              <th>Correo</th>
+              <th>Carrera</th>
+              <th>Semestre</th> 
+              <th></th>
+              <th></th>
+            </tr>
+            <% alumnos.forEach(function(alumno) { %>
+                <tr>
+                  <td><%= alumno.id_alumno %></td>
+                  <td><input type="text" name="f_nombre" value="<%= alumno.nombre %>"></td>
+                  <td><input type="text" name="f_apellido" value="<%= alumno.apellido %>"></td>
+                  <td><input type="text" name="f_contraseña" value="<%= alumno.contraseña %>"></td>
+                  <td><input type="text" name="f_correo" value="<%= alumno.correo %>"></td>
+                  <td><input type="text" name="f_carrera" value="<%= alumno.carrera %>"></td>
+                  <td><input type="text" name="f_semestre" value="<%= alumno.semestre %>"></td>
+                  <td><button data-alumno-id="<%= alumno.id_alumno %>" onclick="borrarAlumno(this)">Borrar</button></td>
+                  <td><button onclick="editarAlumno(this,'<%= alumno.id_alumno %>')">Editar</button></td>
+                </tr>
+              <% }); %>
         
-      
-  </table>
+              <tr>
+                <td><input type="text" id="input_idalumno"></td>
+                <td><input type="text" id="input_nombre"></td>
+                <td><input type="text" id="input_apellido"></td>
+                <td><input type="text" id="input_contraseña"></td>
+                <td><input type="text" id="input_correo"></td>
+                <td><input type="text" id="input_carrera"></td>
+                <td><input type="text" id="input_semestre"></td>
+                <td><button onclick="agregarAlumno()">Agregar Alumno</button></td>
+                <td></td>
+              </tr>
+              
+          </table>
+        </div>
+  
       </main>
+      <script>
+         function agregarAlumno() {
+    // Obtener los valores de los campos de entrada
+    const idalumno = document.getElementById('input_idalumno').value;
+    const nombre = document.getElementById('input_nombre').value;
+    const apellido = document.getElementById('input_apellido').value;
+    const contraseña = document.getElementById('input_contraseña').value;
+    const correo = document.getElementById('input_correo').value;
+    const carrera = document.getElementById('input_carrera').value;
+    const semestre = document.getElementById('input_semestre').value;
+
+    // Realizar una solicitud al servidor para agregar un nuevo alumno
+    fetch('/agregarAlumno', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        idalumno: idalumno,
+        nombre: nombre,
+        apellido: apellido,
+        contraseña: contraseña,
+        correo: correo,
+        carrera: carrera,
+        semestre: semestre
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        // Actualizar la página o realizar alguna acción adicional
+      } else {
+        console.error('Error al agregar el alumno');
+      }
+    })
+    .catch(error => {
+      console.error('Error al realizar la solicitud:', error);
+    });
+  }
+
+
+        function editarAlumno(button, alumnoId) {
+          // Obtener los valores de los campos de edición específicos del registro en el que se hizo clic
+          const nombre = button.parentNode.parentNode.querySelector('input[name="f_nombre"]').value;
+          const apellido = button.parentNode.parentNode.querySelector('input[name="f_apellido"]').value;
+          const contraseña = button.parentNode.parentNode.querySelector('input[name="f_contraseña"]').value;
+          const correo = button.parentNode.parentNode.querySelector('input[name="f_correo"]').value;
+          const carrera = button.parentNode.parentNode.querySelector('input[name="f_carrera"]').value;
+          const semestre = button.parentNode.parentNode.querySelector('input[name="f_semestre"]').value;
+      
+          // Realizar una solicitud al servidor para actualizar los datos del alumno
+          fetch(`/editarAlumno/${alumnoId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              nombre: nombre,
+              apellido: apellido,
+              contraseña: contraseña,
+              correo: correo,
+              carrera: carrera,
+              semestre: semestre
+            })
+          })
+          .then(response => {
+            if (response.ok) {
+              // Actualizar la página o realizar alguna acción adicional
+            } else {
+              console.error('Error al editar el alumno');
+            }
+          })
+          .catch(error => {
+            console.error('Error al realizar la solicitud:', error);
+          });
+        }
+
+        function borrarAlumno(button) {
+    const alumnoId = button.dataset.alumnoId; // Obtener el ID del alumno desde el atributo data-alumno-id
+
+    // Realizar una solicitud al servidor para borrar el alumno
+    fetch(`/borrarAlumno/${alumnoId}`, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (response.ok) {
+        // Actualizar la página o realizar alguna acción adicional
+      } else {
+        console.error('Error al borrar el alumno');
+      }
+    })
+    .catch(error => {
+      console.error('Error al realizar la solicitud:', error);
+    });
+  }
+      </script>
 </body>
 </html>

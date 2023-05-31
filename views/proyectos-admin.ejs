@@ -24,29 +24,122 @@
         </div>
       </header>
       <main>
-        <h2>Tabla de Alumnos</h2>
+        <h2>Tabla de Proyectos</h2>
+        <div class="container_todo">
+          
   <table class="tabla">
     <tr>
       <th>ID</th>
       <th>Titulo</th>
       <th>Descripción</th>
       <th>ID alumno</th>
+      <th></th>
+      <th></th>
     </tr>
     <% proyectos.forEach(function(alumno) { %>
         <tr>
           <td><%= alumno.id_proyectos %></td>
-          <td><%= alumno.titulo %></td>
-          <td><%= alumno.descripcion %></td>
+
+          <td><input type="text" name="f_titulo" value="<%= alumno.titulo %>"></td>
+          <td><input type="text" name="f_descripcion" value="<%= alumno.descripcion %>"></td>
           <td><%= alumno.id_alumno %></td>
-          <td><button>Borrar</button></td>
-          <td><button>Editar</button></td>
+          <td><button data-proyecto-id="<%= alumno.id_proyectos %>" onclick="borrarProyecto(this)">Borrar</button></td>
+          <td><button onclick="editarProyecto(this, '<%= alumno.id_proyectos %>')">Editar</button></td>
         </tr>
       <% }); %>
-      
-        <button>Agregar proyecto</button>
+      <tr>
+        <td><input type="text" id="idproyecto"></td>
+        <td><input type="text" id="titulo"></td>
+        <td><input type="text" id="descripcion"></td>
+        <td><input type="text" id="idalumno"></td>
+        <td><button onclick="agregarProyecto()">Agregar Proyecto</button></td>
+        <td></td>
+      </tr>
         
       
   </table>
+        </div>
+        
       </main>
+
+      <script>
+        function agregarProyecto() {
+    // Obtener los valores de los campos de entrada
+        const idproyecto = document.getElementById('idproyecto').value;
+        const titulo= document.getElementById('titulo').value;
+        const descripcion = document.getElementById('descripcion').value;
+        const idalumno= document.getElementById('idalumno').value;
+
+    // Realizar una solicitud al servidor para agregar un nuevo alumno
+        fetch('/agregarProyecto', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+          body: JSON.stringify({
+            idproyecto: idproyecto,
+            titulo: titulo,
+            descripcion: descripcion,
+            idalumno: idalumno
+          })
+        })
+        .then(response => {
+        if (response.ok) {
+        // Actualizar la página o realizar alguna acción adicional
+        } else {
+          console.error('Error al agregar el Proyecto');
+        }
+        })
+        .catch(error => {
+          console.error('Error al realizar la solicitud:', error);
+        });
+        }
+
+        function editarProyecto(button, proyectoId){
+          const titulo = button.parentNode.parentNode.querySelector('input[name="f_titulo"]').value;
+          const descripcion =button.parentNode.parentNode.querySelector('input[name="f_descripcion"]').value;
+
+          fetch(`/editarProyecto/${proyectoId}`,{
+            method: 'PUT',
+            headers:{
+              'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+              titulo:titulo,
+              descripcion:descripcion
+            })
+          })
+          .then(response=>{
+            if (response.ok){
+              "/proyectos-admin"
+            }else{
+              console.error('Error al editar el proyecto');
+            }
+          })
+          .catch(error => {
+            console.error('Error al realizar la solicitud:', error);
+          });
+        }
+        
+        function borrarProyecto(button) {
+        const proyectoId = button.dataset.proyectoId; // Obtener el ID del alumno desde el atributo data-alumno-id
+
+         // Realizar una solicitud al servidor para borrar el alumno
+        fetch(`/borrarProyecto/${proyectoId}`, {
+          method: 'DELETE'
+        })
+        .then(response => {
+        if (response.ok) {
+        // Actualizar la página o realizar alguna acción adicional
+        } else {
+          console.error('Error al borrar el proyecto');
+        }
+      })
+      .catch(error => {
+        console.error('Error al realizar la solicitud:', error);
+      });
+      }
+
+      </script>
 </body>
 </html>
