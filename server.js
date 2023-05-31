@@ -508,7 +508,7 @@ app.get("/admins", (req,res)=>{
   return res.render('admins');
 })
 app.get("/", (req, res)=>{
-    return res.redirect('index.html')
+    return res.redirect('index.htmlx')
 
 }).listen(5000);
 console.log('Escuchando el puerto 5000')
